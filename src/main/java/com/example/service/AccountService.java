@@ -53,4 +53,13 @@ public class AccountService {
             throw new FailedLoginException();
         }
     }
+
+    /**
+     * Given an accountId, use accountRepository to query the matching account.
+     * @param accountId of the account to query.
+     * @return Account the queried account.
+     */
+    public Account getAccountById(int accountId) {
+        return accountRepository.findByAccountId(accountId);
+    }
 }

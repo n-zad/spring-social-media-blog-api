@@ -10,6 +10,13 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     // JPARepository provides the interface methods for standard CRUD operations.
 
     /**
+     * Property expression to find an account by its accountId.
+     * @param accountId of the account.
+     * @return Account the queried account.
+     */
+    public Account findByAccountId(int accountId);
+
+    /**
      * Property expression to find an account by its username.
      * @param username of the account.
      * @return Account the queried account (since usernames are distinct there will at most one account queried).
