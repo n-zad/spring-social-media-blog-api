@@ -42,4 +42,15 @@ public class SocialMediaController {
     public Account postAccount(@RequestBody Account account) {
         return accountService.persistAccount(account);
     }
+
+    /**
+     * Endpoint for POST localhost:8080/login. Uses accountService to validate than an account exists.
+     * If the given username and password doesn't match an existing account, the status code will be 401 (unauthorized).
+     * @param account the Account object deserialized from the request body.
+     * @return Account including the account_id, if the login was successful.
+     */
+    @PostMapping("/login")
+    public Account verifyAccount(@RequestBody Account account) {
+        return accountService.verifyAccount(account);
+    }
 }

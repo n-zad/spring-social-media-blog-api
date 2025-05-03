@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.example.entity.Account;
 import com.example.repository.AccountRepository;
 import com.example.exception.DuplicateAccountException;
+import com.example.exception.FailedLoginException;
 import com.example.exception.InvalidAccountException;
 
 @Service
@@ -35,6 +36,21 @@ public class AccountService {
             throw new InvalidAccountException();
         } else {
             return accountRepository.save(account);
+        }
+    }
+
+    /**
+     * Given an Account object, use accountRepository to verify that an account with the same username and password exists.
+     * @param account the account to be verified.
+     * @return Account the verified account.
+     * @throws FailedLoginException if there isn't an account with the given username and password.
+     */
+    public Account verifyAccount(Account account) throws FailedLoginException {
+        Account fetchedAccount = accountRepository.findByUsername(account.getUsername());
+        if (fetchedAccount != null && account.getPassword().equals(fetchedAccount.getPassword())) {
+            return fetchedAccount;
+        } else {
+            throw new FailedLoginException();
         }
     }
 }
